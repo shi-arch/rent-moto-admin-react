@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { handleAsyncError } from "../utils/Helper/handleAsyncError.js";
-import Spinner from "../components/spinner/Spinner.jsx";
+//import Spinner from "../components/spinner/Spinner.js";
 
 const CreateNewVehicle = () => {
   const navigate = useNavigate();
@@ -190,7 +190,12 @@ const CreateNewVehicle = () => {
               type="submit"
               disabled={loading}
             >
-              {loading ? <Spinner message={"uploading"} /> : "Publish"}
+              {loading ?
+                <div className="flex items-center justify-center">
+                  <span className="mr-2">uploading</span>
+                  <div className="w-5 h-5 border-4 border-t-blue-500 border-gray-300 rounded-full animate-spin"></div>
+                </div>
+                : "Publish"}
             </button>
           </form>
         </>
