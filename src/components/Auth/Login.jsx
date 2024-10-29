@@ -3,7 +3,7 @@ import Alert from "../Alert/Alert";
 import loginImage from "../../assets/logo/login.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { handleAsyncError } from "../../utils/Helper/handleAsyncError";
-import Spinner from "../Spinner/Spinner";
+//import Spinner from "../Spinner/Spinner";
 import { useNavigate } from "react-router-dom";
 import { isValidEmail } from "../../utils";
 
@@ -136,7 +136,7 @@ const Login = () => {
                   className="w-full bg-theme-dark lg:bg-theme py-3.5 px-6 rounded-lg text-white uppercase hover:bg-theme-dark transition duration-200 ease-in-out disabled:bg-gray-500 outline-none"
                   disabled={loading}
                 >
-                  {loading ? <Spinner message={"Signing In.."} /> : "Sign In"}
+                  {/* {loading ? <Spinner message={"Signing In.."} /> : "Sign In"} */}
                 </button>
               </form>
             </div>

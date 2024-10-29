@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { handleAsyncError } from "../../utils/Helper/handleAsyncError";
-import Spinner from "../Spinner/Spinner";
+//import Spinner from "../Spinner/Spinner";
 import { useEffect, useState } from "react";
 import { toggleEditLimitModal } from "../../Redux/SideBarSlice/SideBarSlice";
 
@@ -74,11 +74,11 @@ const EditLimitModal = () => {
               className="bg-theme-blue hover:bg-theme-blue-light text-gray-100 transition duration-300 ease-in-out px-3 py-2 w-full rounded-lg disabled:bg-gray-400"
               disabled={loading}
             >
-              {loading ? (
+              {/* {loading ? (
                 <Spinner message={"updating..."} />
               ) : (
                 "Update Max Download Limit"
-              )}
+              )} */}
             </button>
           </form>
         </div>

@@ -7,7 +7,7 @@ import { signInSuccess } from "../../Redux/currentUserSlice/CurrentUserSlice";
 import handleSendOtp from "../../utils/sendOtp/sendotp";
 import { handleCreateNewUser } from "../../utils/data";
 import handleCheckUser from "../../utils/data/handleCheckUser";
-import Spinner from "../Spinner/Spinner";
+i//mport Spinner from "../Spinner/Spinner";
 // import { encodeUserData } from "../../utils";
 
 const VerifyOtp = ({
@@ -200,7 +200,7 @@ const VerifyOtp = ({
           type="submit"
           disabled={loading}
         >
-          {loading ? <Spinner message={"loading.."} /> : "Verify"}
+          {/* {loading ? <Spinner message={"loading.."} /> : "Verify"} */}
         </button>
       </div>
     </form>
