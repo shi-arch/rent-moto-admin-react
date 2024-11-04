@@ -1,16 +1,13 @@
-// import noDataImg from "../assets/logo/No-data.svg";
 import { Link } from "react-router-dom";
 import EditLimitModal from "../components/Modal/EditLimitModal";
 import NotFound from "../components/Error/NotFound";
 import CustomTable from "../components/Table/Table";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setColumnData, setTableData, setUpdateData } from "../Redux/AdsSlice/VehicleSlice";
+import { setTableData, setUpdateData } from "../Redux/AdsSlice/VehicleSlice";
 import { getApi } from "../response/api";
-import { Box } from "@mui/material";
-import DeleteModal from "../components/Modal/DeleteModal";
 
-const AllVehicles = () => {
+const AllLocations = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     const checkoToken = localStorage.getItem("token");
@@ -18,7 +15,7 @@ const AllVehicles = () => {
       window.location.href = "/";
     }
     const getAllData = async () => {
-      const res = await getApi("/getVehicleMasterData");
+      const res = await getApi("/getLocationData");
       if(res && res.status == 200){
         dispatch(setTableData(res.data))
       }
@@ -29,12 +26,12 @@ const AllVehicles = () => {
     <>
       <div className="flex items-center justify-between mb-3">
         <h1 className="text-2xl uppercase font-bold text-theme">
-          Vehicle Master
+          {window.location.pathname.substr(1, window.location.pathname.length)}
         </h1>
         <Link
           onClick={() => dispatch(setUpdateData({}))}
           className="bg-theme font-semibold text-gray-100 px-4 lg:px-6 py-2.5 rounded-md shadow-lg hover:bg-theme-light hover:shadow-md inline-flex items-center gap-1"
-          to={"/manage-vehicles"}
+          to={`/manage-${window.location.pathname.substr(1, window.location.pathname.length)}`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -60,4 +57,4 @@ const AllVehicles = () => {
   );
 };
 
-export default AllVehicles;
+export default AllLocations;

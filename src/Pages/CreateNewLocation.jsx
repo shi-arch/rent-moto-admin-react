@@ -8,13 +8,13 @@ import { postApi } from "../response/api.js";
 import { setError } from "../Redux/ErrorSlice/ErrorSlice.js";
 import { staticData } from "../constant.js";
 
-const CreateNewVehicle = () => {
+const CreateNewLocation = () => {
   const navigate = useNavigate();
   const { updateData } = useSelector(state => state.vehicles)
-  const { vehicleName, vehicleType, vehicleBrand, vehicleImage } = updateData
+  const { vehicleId, freeKms, extraKmsCharges, locationId, stationId, vehicleNumber, vehicleModel, vehicleColor, vehiclePlan, perDayCost, lastServiceDate, kmsRun, isBooked, condition } = updateData
   useEffect(() => {
     if (Object.keys(updateData).length) {
-      setImageUrl(updateData.vehicleImage);
+      setImageUrl(updateData.locationImage);
     } else {
       dispatch(setUpdateData({ vehicleType: "gear" }))
     }
@@ -22,7 +22,6 @@ const CreateNewVehicle = () => {
   const dispatch = useDispatch();
   const [imagesUrl, setImageUrl] = useState("");
   const [image, setImage] = useState(null);
-  const [aplicationUrl, setApplicationUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [rows, setRows] = useState(1);
 
@@ -31,29 +30,13 @@ const CreateNewVehicle = () => {
     const url = URL.createObjectURL(file);
     setImageUrl(url);
   }
-  const valid = () => {
-    if (!vehicleImage) {
-      dispatch(setError({ type: "error", message: "Please select image" }))
-      return false
-    } else if (!vehicleName) {
-      dispatch(setError({ type: "error", message: "Please enter vehicle name" }))
-      return false
-    } else if (!vehicleType) {
-      dispatch(setError({ type: "error", message: "Please select vehicle type" }))
-      return false
-    } else if (!vehicleBrand) {
-      dispatch(setError({ type: "error", message: "Please enter vehicle brand" }))
-      return false
-    }
-    return true
-  }
   const createVehicle = async () => {
-    if (valid()) {
-      const res = await postApi('/createVehicleMaster', updateData)
-      if (res && res.status == 200) {
-        dispatch(setError({ type: "success", message: res.message }))
-        navigate('/vehicles')
-      }
+    const res = await postApi('/createLocation', updateData)
+    if (res && res.status == 200) {
+      dispatch(setError({ type: "success", message: res.message }))
+      navigate('/locations')
+    } else {
+      dispatch(setError({ type: "error", message: res.message }))
     }
   }
   const updateRows = () => {
@@ -74,7 +57,7 @@ const CreateNewVehicle = () => {
   return (
     <>
       <h1 className="text-2xl uppercase font-bold text-theme mb-5">
-        Create Master Vehicle
+        Create New Location
       </h1>
       <div className="w-full lg:w-[95%] shadow-lg rounded-xl p-5 mx-auto bg-white">
         <p className="block text-gray-800 font-semibold text-sm mb-2">Image</p>
@@ -95,7 +78,7 @@ const CreateNewVehicle = () => {
                   className="inline-flex items-center gap-1 text-red-500 border border-red-500 p-1 rounded-md hover:bg-red-500 hover:text-gray-100 transition duration-300 ease-in-out group"
                   onClick={() => {
                     setImageUrl("")
-                    dispatch(setUpdateData({ ...updateData, vehicleImage: "" }));
+                    dispatch(setUpdateData({ ...updateData, locationImage: "" }));
                   }}
                 >
                   <svg
@@ -116,7 +99,7 @@ const CreateNewVehicle = () => {
                   </svg>
                   Remove
                 </button>
-              </div>
+            </div>
               <div className="w-full h-28 lg:h-40 mx-auto relative mx-auto">
                 <img
                   src={imagesUrl}
@@ -163,7 +146,7 @@ const CreateNewVehicle = () => {
               const response = await postApi('/image-upload', { formData })
               if (response && response.data) {
                 dispatch(setError({ type: "success", message: response.message }))
-                dispatch(setUpdateData({ ...updateData, vehicleImage: response.data }))
+                dispatch(setUpdateData({ ...updateData, locationImage: response.data }))
                 setImageUrl(response.data)
               }
             } else {
@@ -183,28 +166,16 @@ const CreateNewVehicle = () => {
         </button>
         <div style={{ display: "flex", marginTop: "15px" }}>
           <InputComponent
-            label="Vehicle Name"
             type="text"
-            placeholder="Please Enter Vehicle Name"
-            name="vehicleName"
+            label="Location Name"
+            placeholder="Please Enter Location Name"
+            name="locationName"
           />
-          <SelectComponent
-            label="Transmission Type"
-            data={staticData}
-          />
-        </div>
-        <div style={{ display: "flex", marginTop: "15px" }}>
           <InputComponent
+            type="text"
             label="Image Url"
-            type="text"
-            placeholder="Please Enter Vehicle Image URL"
-            name="vehicleImage"
-          />
-          <InputComponent
-            label="Brand Name"
-            type="text"
-            placeholder="Please Enter Vehicle Brand Name"
-            name="vehicleBrand"
+            placeholder="Please Enter Image url"
+            name="locationImage"
           />
         </div>
         <button
@@ -219,4 +190,4 @@ const CreateNewVehicle = () => {
   );
 };
 
-export default CreateNewVehicle;
+export default CreateNewLocation;

@@ -13,14 +13,11 @@ import Layout from "./components/layout/Layout";
 import AllVehiclesTbl from "./Pages/AllVehiclesTbl";
 import CreateNewVehicleTbl from "./Pages/CreateNewVehicleTbl";
 import CreateNewStation from "./Pages/CreateNewStation";
-import CreateNewPlan from "./Pages/CreateNewPlan";
 import AllUsers from "./Pages/AllUsers";
 import AllStations from "./Pages/AllStations";
 import AllPlans from "./Pages/AllPlans";
 import AllLocations from "./Pages/AllLocations";
 import CreateNewUser from "./Pages/CreateNewUser";
-import CreateNewLocation from "./Pages/CreateNewLocation";
-
 
 const App = () => {
   return (
@@ -44,9 +41,18 @@ const App = () => {
 
           <Route path="plans" exact element={<AllPlans />} />
           <Route path="manage-plans" exact element={<CreateNewPlan />} />
+          
 
+          {/* 
+
+          
+          
+          
+          
+          
+          
           <Route path="locations" exact element={<AllLocations />} />
-          <Route path="manage-locations" exact element={<CreateNewLocation />} />
+          <Route path="manage-locations" exact element={<AllLocations />} /> */}
 
           <Route path="profile" exact element={<Profile />} />
         </Route>

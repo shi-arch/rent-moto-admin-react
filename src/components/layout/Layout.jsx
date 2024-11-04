@@ -6,6 +6,7 @@ import SideBar from "../SideBar/SideBar";
 import Alert from "../Alert/Alert";
 import SignOutModal from "../Modal/SignOutModal";
 import ScrollToTopButton from "../ScrollButton/ScrollToTopButton";
+import DeleteModal from "../Modal/DeleteModal";
 // import PreLoader from "../PreLoader/PreLoader";
 
 const Layout = () => {
@@ -65,6 +66,7 @@ const Layout = () => {
         {message && <Alert error={message} errorType={type} />}
         {/* beforeSignout user will see this modal  */}
         <SignOutModal />
+        <DeleteModal />
         <div
           className={`${
             is_open

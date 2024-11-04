@@ -6,8 +6,24 @@ const vehicleSlice = createSlice({
     Vehicle: {},
     loading: false,
     error: null,
+    loginDetails: {},
+    tableData: [],
+    columnData: [],
+    updateData: {}
   },
-  reducers: {
+  reducers: {   
+    setUpdateData: (state, action) => {
+      state.updateData = action.payload;
+    },
+    setLoginDetails: (state, action) => {
+      state.loginDetails = action.payload;
+    },
+    setTableData: (state, action) => {
+      state.tableData = action.payload;
+    },
+    setColumnData: (state, action) => {
+      state.columnData = action.payload;
+    },
     fetchVehicleStart: (state) => {
       state.loading = true;
       state.downloadLoading = true;
@@ -49,6 +65,10 @@ const vehicleSlice = createSlice({
 });
 
 export const {
+  setLoginDetails,
+  setColumnData,
+  setUpdateData,
+  setTableData,
   fetchVehicleStart,
   fetchVehicleSuccess,
   fetchMoreVehicleSuccess,

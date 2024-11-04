@@ -8,45 +8,45 @@ import LeaderboardRoundedIcon from "@mui/icons-material/LeaderboardRounded";
 import DirectionsCarRoundedIcon from "@mui/icons-material/DirectionsCarRounded";
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 
-const InfoCard = ({ index }) => {
-  const data = [
-    { title: "Earning", amount: 50000, icon: <CurrencyRupeeRoundedIcon /> },
-    {
-      title: "Spend this month",
-      amount: 20000,
-      icon: <CurrencyRupeeRoundedIcon />,
-    },
-    { title: "sales", amount: 60000, icon: <PointOfSaleRoundedIcon /> },
-    {
-      title: "Your balance",
-      amount: 100675,
-      icon: <AccountBalanceRoundedIcon />,
-    },
-    {
-      title: "Leads this month",
-      amount: 100,
-      icon: <LeaderboardRoundedIcon />,
-    },
-    { title: "All Leads", amount: 250, icon: <LeaderboardRoundedIcon /> },
-    { title: "Total Vehicle", amount: 110, icon: <DirectionsCarRoundedIcon /> },
-    {
-      title: "Vehicle On Rent",
-      amount: 50,
-      icon: <DirectionsCarRoundedIcon />,
-    },
-    { title: "All Users", amount: 350, icon: <GroupRoundedIcon /> },
-  ];
+const InfoCard = ({ index, totalCounts }) => {
+  // const data = [
+  //   { title: "Total Users", amount: 50000, icon: <CurrencyRupeeRoundedIcon /> },
+  //   {
+  //     title: "Spend this month",
+  //     amount: 20000,
+  //     icon: <CurrencyRupeeRoundedIcon />,
+  //   },
+  //   { title: "sales", amount: 60000, icon: <PointOfSaleRoundedIcon /> },
+  //   {
+  //     title: "Your balance",
+  //     amount: 100675,
+  //     icon: <AccountBalanceRoundedIcon />,
+  //   },
+  //   {
+  //     title: "Leads this month",
+  //     amount: 100,
+  //     icon: <LeaderboardRoundedIcon />,
+  //   },
+  //   { title: "All Leads", amount: 250, icon: <LeaderboardRoundedIcon /> },
+  //   { title: "Total Vehicle", amount: 110, icon: <DirectionsCarRoundedIcon /> },
+  //   {
+  //     title: "Vehicle On Rent",
+  //     amount: 50,
+  //     icon: <DirectionsCarRoundedIcon />,
+  //   },
+  //   { title: "All Users", amount: 350, icon: <GroupRoundedIcon /> },
+  // ];
   return (
     <div className="shadow-md rounded-xl bg-white px-6 py-6">
       <div className="flex flex-wrap items-center gap-3">
         <div className="bg-theme p-3 rounded-full text-gray-100">
-          <span>{data[index].icon}</span>
+          <span>{totalCounts[index].icon}</span>
         </div>
         <div>
-          <h2 className="text-semibold text-gray-400">{data[index].title}</h2>
+          <h2 className="text-semibold text-gray-400">{totalCounts[index].title}</h2>
           <h2 className="lg:text-2xl font-bold">
             {index < 4 ? "₹" : ""}
-            <CountUp end={data[index].amount} />
+            <CountUp end={totalCounts[index].count} />
           </h2>
           {/* {index % 2 == 0 && (
             <p>

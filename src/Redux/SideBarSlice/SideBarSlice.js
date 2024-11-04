@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   is_open: true,
   isModelActive: false,
+  isDeleteModelActive: false,
   isRechargeModelActive: false,
   isVerifyUserModalActive: false,
   isEditLimitModalActive: false,
@@ -18,6 +19,9 @@ const SideBarSlice = createSlice({
     },
     toggleModal: (state) => {
       state.isModelActive = state.isModelActive === false ? true : false;
+    },
+    toggleDeleteModal: (state, action) => {
+      state.isDeleteModelActive = state.isDeleteModelActive === false ? true : false;
     },
     toggleRechargeModal: (state) => {
       state.isRechargeModelActive =
@@ -41,6 +45,7 @@ const SideBarSlice = createSlice({
 export const {
   toggleSideBar,
   toggleModal,
+  toggleDeleteModal,
   toggleRechargeModal,
   toggleVerifyUserModal,
   toggleEditLimitModal,

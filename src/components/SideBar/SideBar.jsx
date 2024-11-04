@@ -20,7 +20,6 @@ const SideBar = () => {
   const isMobile = useIsMobile();
   const { is_open } = useSelector((state) => state.sideBar);
   const { theme } = useSelector((state) => state.theme);
-  // const [imageLoading, setImageLoading] = useState(true);
 
   useEffect(() => {
     if (isMobile) {
@@ -30,7 +29,6 @@ const SideBar = () => {
     }
   }, [window.location.href]);
 
-  // menulist
   const menuList = [
     {
       menuImg: <DashboardRoundedIcon />,
@@ -39,18 +37,33 @@ const SideBar = () => {
     },
     {
       menuImg: <DirectionsCarRoundedIcon />,
-      menuTitle: "Vehicle Type",
-      menuLink: "/vehicle-type",
-    },
-    {
-      menuImg: <LocationOnRoundedIcon />,
-      menuTitle: "Zones",
-      menuLink: "/zones",
+      menuTitle: "Vehicle",
+      menuLink: "/vehicles",
     },
     {
       menuImg: <DirectionsCarRoundedIcon />,
-      menuTitle: "Brand",
-      menuLink: "/Brand",
+      menuTitle: "Users",
+      menuLink: "/users",
+    },
+    {
+      menuImg: <LocationOnRoundedIcon />,
+      menuTitle: "Plans",
+      menuLink: "/plans",
+    },
+    {
+      menuImg: <LocationOnRoundedIcon />,
+      menuTitle: "Stations",
+      menuLink: "/stations",
+    },
+    {
+      menuImg: <LocationOnRoundedIcon />,
+      menuTitle: "Locations",
+      menuLink: "/locations",
+    },
+    {
+      menuImg: <DirectionsCarRoundedIcon />,
+      menuTitle: "Vehicle Table",
+      menuLink: "/vehicleTbl",
     },
     {
       menuImg: <DirectionsCarRoundedIcon />,
@@ -60,13 +73,29 @@ const SideBar = () => {
     },
     {
       menuImg: <DirectionsCarRoundedIcon />,
+      menuTitle: "Manage VehicleTbl",
+      menuLink: "/manage-vehicleTbl",
+      nestedLink: {},
+    },
+    {
+      menuImg: <DirectionsCarRoundedIcon />,
       menuTitle: "Manage Users",
       menuLink: "/manage-users",
     },
     {
       menuImg: <DirectionsCarRoundedIcon />,
-      menuTitle: "Manage Bookings",
-      menuLink: "/manage-bookings",
+      menuTitle: "Manage Locations",
+      menuLink: "/manage-locations",
+    },
+    {
+      menuImg: <DirectionsCarRoundedIcon />,
+      menuTitle: "Manage Stations",
+      menuLink: "/manage-stations",
+    },
+    {
+      menuImg: <DirectionsCarRoundedIcon />,
+      menuTitle: "Manage Plans",
+      menuLink: "/manage-plans",
     },
     {
       menuImg: <PaymentRoundedIcon />,

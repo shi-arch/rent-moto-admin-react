@@ -1,7 +1,35 @@
+import { useEffect, useState } from "react";
 import BarChart from "../components/charts/BarChart";
 import InfoCard from "../components/Dashboard/InfoCard";
-
+import { getApi } from "../response/api";
+import {CurrencyRupeeRounded, PointOfSaleRounded, AccountBalanceRounded, LeaderboardRounded, DirectionsCarRounded, GroupRounded} from "@mui/icons-material";
 const Dashboard = () => {
+  const [totalCounts, setTotalCounts] = useState([]);
+  useEffect(() => {
+    const checkoToken = localStorage.getItem("token");
+    if (!checkoToken) {
+      window.location.href = "/";
+    }
+    const getAllData = async () => {
+      const res = await getApi("/getAllDataCount");
+      let dadada = Object.keys(res.data).map((key) => {
+        return { count: res.data[key], title: "TOTAL " + key.substring(0, key.length-5).toUpperCase(),
+          icon: key == "usersCount" ? <CurrencyRupeeRounded /> : 
+          key == "bookingsCount" ? <PointOfSaleRounded /> :
+          key == "vehiclesCount" ? <AccountBalanceRounded /> :
+          key == "locationCount" ? <LeaderboardRounded /> :
+          key == "stationsCount" ? <GroupRounded /> :
+          key == "couponsCount" ? <DirectionsCarRounded /> :
+          key == "invoicesCount" ? <AccountBalanceRounded /> :
+          key == "plansCount" ? <CurrencyRupeeRounded /> :
+          key == "ordersCount" ? <LeaderboardRounded /> :
+          <GroupRounded />
+         };
+      })
+      setTotalCounts(dadada);
+    };
+    getAllData();
+  }, []);
   // year chart
   const yearChartOptions = {
     chart: {
@@ -48,16 +76,21 @@ const Dashboard = () => {
       data: [30, 40, 45, 50, 49, 60, 70],
     },
   ];
-
   return (
     <>
       <h1 className="text-2xl uppercase font-bold text-theme mb-5">
         Dashboard
       </h1>
       <div className="grid gird-cols-2 lg:grid-cols-3 gap-5 mb-5">
-        {new Array(9).fill(undefined).map((_, index) => (
+        {
+          totalCounts.length ? 
+          totalCounts.map((_, index) => (
+            <InfoCard key={index} totalCounts={totalCounts} index={index} />
+          )) : ""
+        }
+        {/* {new Array(9).fill(undefined).map((_, index) => (
           <InfoCard key={index} index={index} />
-        ))}
+        ))} */}
       </div>
       <div className="flex items-center justify-between flex-wrap gap-6">
         <div className="flex-1 shadow-lg p-5 rounded-2xl bg-white">

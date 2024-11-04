@@ -5,34 +5,31 @@ import NotFound from "../components/Error/NotFound";
 import CustomTable from "../components/Table/Table";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setColumnData, setTableData, setUpdateData } from "../Redux/AdsSlice/VehicleSlice";
-import { getApi } from "../response/api";
+import { setColumnData, setTableData } from "../Redux/AdsSlice/VehicleSlice";
+import { getApi, postApi } from "../response/api";
 import { Box } from "@mui/material";
-import DeleteModal from "../components/Modal/DeleteModal";
 
-const AllVehicles = () => {
+const AllVehiclesTbl = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     const checkoToken = localStorage.getItem("token");
     if (!checkoToken) {
       window.location.href = "/";
     }
-    const getAllData = async () => {
-      const res = await getApi("/getVehicleMasterData");
-      if(res && res.status == 200){
+    (async () => {
+      const res = await postApi("/getVehicleTblData");
+      if (res && res.status == 200) {
         dispatch(setTableData(res.data))
       }
-    };
-    getAllData();
+    })()
   }, []);
   return (
     <>
       <div className="flex items-center justify-between mb-3">
         <h1 className="text-2xl uppercase font-bold text-theme">
-          Vehicle Master
+          Vehicle Table
         </h1>
         <Link
-          onClick={() => dispatch(setUpdateData({}))}
           className="bg-theme font-semibold text-gray-100 px-4 lg:px-6 py-2.5 rounded-md shadow-lg hover:bg-theme-light hover:shadow-md inline-flex items-center gap-1"
           to={"/manage-vehicles"}
         >
@@ -60,4 +57,4 @@ const AllVehicles = () => {
   );
 };
 
-export default AllVehicles;
+export default AllVehiclesTbl;

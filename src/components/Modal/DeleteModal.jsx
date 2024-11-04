@@ -1,26 +1,28 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  // toggleClearModals,
-  toggleModal,
+  toggleDeleteModal
 } from "../../Redux/SideBarSlice/SideBarSlice";
 import { handleSignOutUser } from "../../utils";
 import { useNavigate } from "react-router-dom";
+import { postApi } from "../../response/api";
+import { setError } from "../../Redux/ErrorSlice/ErrorSlice";
 
-const SignOutModal = () => {
+const DeleteModal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isModelActive } = useSelector((state) => state.sideBar);
+  const { isDeleteModelActive } = useSelector((state) => state.sideBar);
+  const { updateData } = useSelector((state) => state.vehicles);
 
   return (
     <div
       className={`fixed ${
-        !isModelActive ? "hidden" : ""
+        !isDeleteModelActive ? "hidden" : ""
       } z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 `}
     >
       <div className="relative top-40 mx-auto shadow-xl rounded-md bg-white max-w-md">
         <div className="flex justify-end p-2">
           <button
-            onClick={() => dispatch(toggleModal())}
+            onClick={() => dispatch(toggleDeleteModal())}
             type="button"
             className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
           >
@@ -55,13 +57,26 @@ const SignOutModal = () => {
             ></path>
           </svg>
           <h3 className="text-xl font-normal text-gray-500 mt-5 mb-6">
-            Are you sure you want to Signout?
+            Are you sure you want to Delete?
           </h3>
           <button
             className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2"
-            onClick={() => {
-              navigate("/")
-              localStorage.clear()
+            onClick={async () => {
+              if(Object.keys(updateData).length) {
+                let location = window.location.pathname
+                let ep = location.includes('vehicle') ? "/createVehicleMaster" : location.includes('user') ? "/signup" :
+                location.includes('plan') ? "/createPlan" : location.includes('vehicleTbl') ? "/createVehicle" :
+                location.includes('location') ? "/createLocation" : location.includes('station') ? "/createStation" : ""
+                if(ep){
+                  const res = await postApi(ep, {_id: updateData._id, deleteRec: true});
+                  if(res && res.status == 200){
+                    dispatch(setError({ type: "success", message: res.message }));
+                  } else {
+                    dispatch(setError({ type: "error", message: res.message }));
+                  }
+                }                
+              }
+              window.location.reload()
             }}
           >
             Yes, I'm sure
@@ -69,7 +84,7 @@ const SignOutModal = () => {
           <button
             className="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center"
             data-modal-toggle="delete-user-modal"
-            onClick={() => dispatch(toggleModal())}
+            onClick={() => dispatch(toggleDeleteModal())}
           >
             No, cancel
           </button>
@@ -79,4 +94,4 @@ const SignOutModal = () => {
   );
 };
 
-export default SignOutModal;
+export default DeleteModal;

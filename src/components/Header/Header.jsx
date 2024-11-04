@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import userImage from "../../assets/logo/user.png";
+import { useNavigate } from "react-router-dom";
 import {
   toggleModal,
   toggleSideBar,
@@ -14,6 +15,7 @@ import Search from "../SearchBar/Search";
 
 const Header = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const adminRef = useRef(null);
   // const { currentUser } = useSelector((state) => state.currentUser);
