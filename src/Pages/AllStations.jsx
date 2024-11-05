@@ -13,10 +13,12 @@ const AllStations = () => {
       window.location.href = "/";
     }
     const getAllData = async () => {
+      dispatch(setLoading(true));
       const res = await getApi("/getStationData");
       if(res && res.status == 200){
         dispatch(setTableData(res.data))
       }
+      dispatch(setLoading(false));
     };
     getAllData();
   }, []);

@@ -3,7 +3,12 @@ import BarChart from "../components/charts/BarChart";
 import InfoCard from "../components/Dashboard/InfoCard";
 import { getApi } from "../response/api";
 import {CurrencyRupeeRounded, PointOfSaleRounded, AccountBalanceRounded, LeaderboardRounded, DirectionsCarRounded, GroupRounded} from "@mui/icons-material";
+import { Loader } from "../components/CommonComponents/commonComponents";
+import { setLoading } from "../Redux/ThemeSlice/ThemeSlice";
+import { useDispatch, useSelector } from "react-redux";
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.theme.loading);
   const [totalCounts, setTotalCounts] = useState([]);
   useEffect(() => {
     const checkoToken = localStorage.getItem("token");
@@ -11,6 +16,7 @@ const Dashboard = () => {
       window.location.href = "/";
     }
     const getAllData = async () => {
+      dispatch(setLoading(true));
       const res = await getApi("/getAllDataCount");
       let dadada = Object.keys(res.data).map((key) => {
         return { count: res.data[key], title: "TOTAL " + key.substring(0, key.length-5).toUpperCase(),
@@ -26,9 +32,11 @@ const Dashboard = () => {
           <GroupRounded />
          };
       })
+      dispatch(setLoading(false));
       setTotalCounts(dadada);
     };
     getAllData();
+    
   }, []);
   // year chart
   const yearChartOptions = {
@@ -78,6 +86,9 @@ const Dashboard = () => {
   ];
   return (
     <>
+   {
+    isLoading ?  <Loader /> : ""
+   }
       <h1 className="text-2xl uppercase font-bold text-theme mb-5">
         Dashboard
       </h1>

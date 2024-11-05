@@ -3,6 +3,10 @@ import { setUpdateData } from "../../Redux/AdsSlice/VehicleSlice";
 import { useEffect, useState } from "react";
 import { getApi } from "../../response/api";
 import { setError } from "../../Redux/ErrorSlice/ErrorSlice";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import Button from '@mui/material/Button';
+import { setLoading } from "../../Redux/ThemeSlice/ThemeSlice";
 
 export const InputComponent = ({ type, placeholder, name, label }) => {
     const { updateData } = useSelector((state) => state.vehicles);
@@ -60,6 +64,20 @@ export const SelectComponent2 = () => {
         </div>
 
     );
+};
+
+
+export const Loader = () => {
+  return (
+    <div>
+      <Backdrop
+        sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+        open={true}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    </div>
+  );
 };
 
 export const Spinner = ({ message }) => {
