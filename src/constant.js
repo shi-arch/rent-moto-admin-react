@@ -47,8 +47,8 @@ export const planColumns = [
         size: 150,
     },
     {
-        accessorKey: 'locationId',
-        header: 'Location Id',
+        accessorKey: 'location',
+        header: 'Location',
         size: 150,
     },
     {
@@ -69,8 +69,8 @@ export const locationColumns = [
 
 export const vehicleTableColumns = [
     {
-        accessorKey: 'vehicleId', //access nested data with dot notation
-        header: 'Vehicle Id',
+        accessorKey: 'vehicleName', //access nested data with dot notation
+        header: 'vehicleName',
         size: 150,
     },
     {
@@ -79,13 +79,13 @@ export const vehicleTableColumns = [
         size: 150,
     },
     {
-        accessorKey: 'locationId', //normal accessorKey
-        header: 'Location Id',
+        accessorKey: 'locationName', //normal accessorKey
+        header: 'Location',
         size: 150,
     },
     {
-        accessorKey: 'stationId', //normal accessorKey
-        header: 'Station Id',
+        accessorKey: 'stationName', //normal accessorKey
+        header: 'Station',
         size: 150,
     },
     {

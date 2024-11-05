@@ -15,9 +15,16 @@ const AllPlans = () => {
       window.location.href = "/";
     }
     const getAllData = async () => {
-      const res = await getApi("/getPlanData");
-      if(res && res.status == 200){
-        dispatch(setTableData(res.data))
+      const planData = await getApi("/getPlanData");
+      if(planData && planData.status == 200){
+        const locationData = await getApi("/getLocationData");
+        if(locationData && locationData.status == 200){
+          const mapperData = planData.data.map((o) => ({
+            ...o,
+            location: locationData.data.find((l) => l._id == o.locationId).locationName
+          }))
+          dispatch(setTableData(mapperData))
+        }
       }
     };
     getAllData();

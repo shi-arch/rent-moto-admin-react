@@ -48,7 +48,7 @@ const CustomTable = () => {
           }} style={{ marginRight: "10px", cursor: "pointer" }}><Create /></span>
           <span onClick={() => {
             let data = JSON.parse(JSON.stringify(row.original))
-            data._id = JSON.stringify(row.original._id)
+            //data._id = JSON.stringify(row.original._id)
             debugger
             dispatch(setUpdateData(row.original))
             dispatch(toggleDeleteModal())
