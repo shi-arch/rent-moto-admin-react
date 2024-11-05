@@ -62,6 +62,15 @@ export const SelectComponent2 = () => {
     );
 };
 
+export const Spinner = ({ message }) => {
+    return (
+        <div className="flex items-center justify-center">
+            <span className="mr-2">{message}</span>
+            <div className="w-5 h-5 border-4 border-t-blue-500 border-gray-300 rounded-full animate-spin"></div>
+        </div>
+    );
+};
+
 export const SelectComponent3 = () => {
     const { updateData } = useSelector(state => state.vehicles)
     const [locationData, setLocationData] = useState([])

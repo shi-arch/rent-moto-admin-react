@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleAsyncError } from "../../utils/Helper/handleAsyncError";
 import { useNavigate } from "react-router-dom";
 import { isValidEmail } from "../../utils";
-import Spinner from "../spinner/Spinner";
 import { Email } from "@mui/icons-material";
 import { setLoginDetails } from "../../Redux/AdsSlice/VehicleSlice";
 import { setError } from "../../Redux/ErrorSlice/ErrorSlice";
 import { setLoading } from "../../Redux/ThemeSlice/ThemeSlice";
 import { postApi } from "../../response/api";
+import { Spinner } from "../CommonComponents/commonComponents";
 
 const Login = () => {
   const [inputType, setInputType] = useState("password");
