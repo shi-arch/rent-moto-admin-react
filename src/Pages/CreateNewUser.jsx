@@ -1,82 +1,21 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { handleAsyncError } from "../utils/Helper/handleAsyncError.js";
-import { InputComponent, SelectComponent } from "../components/CommonComponents/commonComponents.jsx";
-import { setUpdateData } from "../Redux/AdsSlice/VehicleSlice.js";
-import { postApi } from "../response/api.js";
-import { setError } from "../Redux/ErrorSlice/ErrorSlice.js";
-import { staticData } from "../constant.js";
+import { useSelector } from "react-redux";
+import { BackButton, CreateUpdate, ImageComponent, InputComponent, Loader, SelectComponent, SwitchComponent } from "../components/CommonComponents/commonComponents.jsx";
+import {  statusArr, UserTypeArr } from "../constant.js";
 
 const CreateNewUser = () => {
-  const navigate = useNavigate();
-  const { updateData } = useSelector(state => state.vehicles)
-  const { userType, isEmailVerified, isContactVerified, kycApproved, userDocuments, status, altContact, firstName, lastName, contact, email } = updateData
-  const dispatch = useDispatch();
-  const [image, setImage] = useState(null);
-  const [aplicationUrl, setApplicationUrl] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [rows, setRows] = useState(1);
-  const valid = () => {
-    if (!userType) {
-      dispatch(setError({ type: "error", message: "Please enter userType" }))
-      return false
-    } else if (!status) {
-      dispatch(setError({ type: "error", message: "Please enter status" }))
-      return false
-    } else if (!firstName) {
-      dispatch(setError({ type: "error", message: "Please select firstName" }))
-      return false
-    } else if (!lastName) {
-      dispatch(setError({ type: "error", message: "Please enter lastName" }))
-      return false
-    } else if (!contact) {
-      dispatch(setError({ type: "error", message: "Please enter contact" }))
-      return false
-    } else if (!email) {
-      dispatch(setError({ type: "error", message: "Please enter email" }))
-      return false
-    }
-    return true
-  }
-  const create = async () => {
-    if (valid()) {
-      const res = await postApi('/signup', updateData)
-      if (res && res.status == 200) {
-        dispatch(setError({ type: "success", message: res.message }))
-        navigate('/users')
-      } else {
-        dispatch(setError({ type: "error", message: res.message }))
-      }
-    }
-  }
-  const updateRows = () => {
-    if (window.innerWidth < 640) {
-      setRows(2);
-    } else {
-      setRows(1);
-    }
-  };
-  useEffect(() => {
-    updateRows();
-    window.addEventListener("resize", updateRows);
-    return () => {
-      window.removeEventListener("resize", updateRows);
-    };
-  }, []);
-
+  const loading = useSelector((state) => state.theme.loading);
   return (
     <>
-      <h1 className="text-2xl uppercase font-bold text-theme mb-5">
-        Create New User
-      </h1>
+      {
+        loading ? <Loader /> : null
+      }
+      <BackButton label="New User" />
       <div className="w-full lg:w-[95%] shadow-lg rounded-xl p-5 mx-auto bg-white">
         <div style={{ display: "flex", marginTop: "15px" }}>
-          <InputComponent
+          <SelectComponent
             label={"User Type"}
-            type="text"
-            placeholder="Please Enter User Type"
             name="userType"
+            data={UserTypeArr}
           />
           <InputComponent
             label={"First Name"}
@@ -93,7 +32,7 @@ const CreateNewUser = () => {
             name="lastName"
           />
           <InputComponent
-          label={"Email"}
+            label={"Email"}
             type="text"
             placeholder="Please Enter email"
             name="email"
@@ -101,67 +40,52 @@ const CreateNewUser = () => {
         </div>
         <div style={{ display: "flex", marginTop: "15px" }}>
           <InputComponent
-            type="text"
+            type="number"
             label={"Contact"}
             placeholder="Please Enter contact"
             name="contact"
           />
           <InputComponent
-          label={"Alternate Contact"}
+            label={"Alternate Contact"}
             type="text"
             placeholder="Please Enter altContact"
             name="altContact"
           />
         </div>
         <div style={{ display: "flex", marginTop: "15px" }}>
-          <InputComponent
-          label={"Status"}
-            type="text"
-            placeholder="Please Enter status"
+          <SelectComponent
+            label={"Status"}
             name="status"
+            data={statusArr}
           />
           <InputComponent
-          label={"Password"}
+            label={"Password"}
             type="password"
             placeholder="Please Enter password"
             name="password"
           />
         </div>
         <div style={{ display: "flex", marginTop: "15px" }}>
-          <InputComponent
-          label={"Email Verified"}
-            type="text"
-            placeholder="Please Enter isEmailVerified"
+          <SwitchComponent
+            label={"Is Email Verified"}
             name="isEmailVerified"
           />
-          <InputComponent
-          label={"Contact Verified"}
-            type="text"
-            placeholder="Please Enter isContactVerified"
+          <SwitchComponent
+            label={"Is Contact Verified"}
             name="isContactVerified"
+          />
+          <SwitchComponent
+            label={"KYC Approved"}
+            name="kycApproved"
+            //style={true}
           />
         </div>
         <div style={{ display: "flex", marginTop: "15px" }}>
-          <InputComponent
-          label={"KYC Approved"}
-            type="text"
-            placeholder="Please Enter kycApproved"
-            name="kycApproved"
-          />
-          <InputComponent
-          label={"User Documents"}
-            type="text"
-            placeholder="Please Enter userDocuments"
-            name="userDocuments"
-          />
+        <ImageComponent label={"Address Proof"} name={"addressProof"} />
+          <ImageComponent label={"Id Proof"} name={"idProof"} />
+          <ImageComponent label={"Driving Licence"} name={"drivingLicence"} />
         </div>
-        <button
-          onClick={create}
-          className="bg-theme hover:bg-theme-dark text-white font-bold px-5 py-3 rounded-md w-full mt-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:bg-gray-400"
-        >
-          {updateData._id ? "Update" : "Create"}
-        </button>
-
+        <CreateUpdate url="/signup" />
       </div>
     </>
   );

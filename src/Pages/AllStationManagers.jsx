@@ -4,11 +4,11 @@ import { CollectiveComponent, Loader } from "../components/CommonComponents/comm
 import CreateNewUser from "./CreateNewUser";
 import { displayTableData } from "../constant";
 
-const AllUsers = () => {
+const AllStationManagers = () => {
   const addNew = useSelector((state) => state.vehicles.addNew)
   const loading = useSelector((state) => state.theme.loading);
   useEffect(() => {
-    displayTableData(`/getAllUsers`);
+    displayTableData(`/getAllUsers?userType=manager`);
   }, []);
   return (
     <>
@@ -18,4 +18,4 @@ const AllUsers = () => {
   );
 };
 
-export default AllUsers;
+export default AllStationManagers;

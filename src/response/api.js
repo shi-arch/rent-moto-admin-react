@@ -1,6 +1,5 @@
 import axios from "axios";
-const baseUrl = "https://rent-moto-back-end-one.vercel.app";
-//const baseUrl = "http://localhost:8080";
+import { baseUrl } from "../constant";
 
 export const getApi = async (url) => {
     const headers = {

@@ -50,6 +50,7 @@ const Login = () => {
       if(res.status === 200){       
         dispatch(setError({type: "success", message: res.message})); 
         localStorage.setItem("token", res.token)
+        localStorage.setItem("user", JSON.stringify(res.data))
         dispatch(setLoginDetails(res.data))
         navigate("/dashboard")
       } else {

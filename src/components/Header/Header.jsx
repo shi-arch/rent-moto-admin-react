@@ -128,13 +128,13 @@ const Header = () => {
                   <FontAwesomeIcon className=" mr-1" icon={faUser} />
                   View Profile
                 </Link>
-                <Link
+                {/* <Link
                   className="py-1.5 px-1.5 hover:bg-theme rounded-md hover:text-white transition duration-200 ease-in-out w-full"
                   to={"/wallet"}
                 >
                   <FontAwesomeIcon className=" mr-1" icon={faWallet} />
                   View Wallet
-                </Link>
+                </Link> */}
                 <Link
                   className="py-1.5 px-1.5 hover:bg-theme rounded-md hover:text-white transition duration-200 ease-in-ou w-full"
                   onClick={() => dispatch(toggleModal())}

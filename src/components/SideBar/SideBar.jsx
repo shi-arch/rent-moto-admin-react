@@ -7,12 +7,16 @@ import {
 import { useIsMobile } from "../../utils";
 import { useEffect, useState } from "react";
 import { ImageSkeleton } from "../Skeleton";
-
+import SideBarDropDown from "./SideBarDropDown";
 // icons import
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import DirectionsCarRoundedIcon from "@mui/icons-material/DirectionsCarRounded";
 import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import PaymentRoundedIcon from "@mui/icons-material/PaymentRounded";
+import ArchiveIcon from '@mui/icons-material/Archive';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
+import TransferWithinAStationIcon from '@mui/icons-material/TransferWithinAStation';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 
 const SideBar = () => {
   const location = useLocation();
@@ -37,71 +41,168 @@ const SideBar = () => {
     },
     {
       menuImg: <DirectionsCarRoundedIcon />,
-      menuTitle: "Vehicle",
-      menuLink: "/vehicles",
-    },
-    {
-      menuImg: <DirectionsCarRoundedIcon />,
-      menuTitle: "Users",
-      menuLink: "/users",
+      menuTitle: "Vehicle Master",
+      menuLink: "/vehicle-master",
     },
     {
       menuImg: <LocationOnRoundedIcon />,
-      menuTitle: "Plans",
-      menuLink: "/plans",
+      menuTitle: "Location Master",
+      menuLink: "/location-master",
     },
     {
-      menuImg: <LocationOnRoundedIcon />,
-      menuTitle: "Stations",
-      menuLink: "/stations",
+      menuImg: <TransferWithinAStationIcon />,
+      menuTitle: "Manage Stations",
+      menuLink: "/manage-station",
     },
     {
-      menuImg: <LocationOnRoundedIcon />,
-      menuTitle: "Locations",
-      menuLink: "/locations",
-    },
-    {
-      menuImg: <DirectionsCarRoundedIcon />,
-      menuTitle: "Vehicle Table",
-      menuLink: "/vehicleTbl",
+      menuImg: <SupervisedUserCircleIcon />,
+      menuTitle: "Manage Users",
+      nestedLink: [
+        {
+          //menuImg: <DirectionsCarRoundedIcon />,
+          menuTitle: "All Users",
+          menuLink: "/all-users",
+        },
+        {
+          //menuImg: <DirectionsCarRoundedIcon />,
+          menuTitle: "Station Managers",
+          menuLink: "/station-managers",
+        },
+        {
+          //menuImg: <DirectionsCarRoundedIcon />,
+          menuTitle: "Customers",
+          menuLink: "/customers",
+        },
+        {
+          //menuImg: <DirectionsCarRoundedIcon />,
+          menuTitle: "KYC approved Users",
+          menuLink: "/kyc-approved-users",
+        },
+        {
+          //menuImg: <DirectionsCarRoundedIcon />,
+          menuTitle: "Email Approved Users",
+          menuLink: "/email-approved-users",
+        },
+        {
+          //menuImg: <DirectionsCarRoundedIcon />,
+          menuTitle: "Phone Approved Users",
+          menuLink: "/phone-approved-users",
+        },
+      ]
     },
     {
       menuImg: <DirectionsCarRoundedIcon />,
       menuTitle: "Manage Vehicles",
-      menuLink: "/manage-vehicles",
-      nestedLink: {},
+      nestedLink: [
+        {
+         // menuImg: <DirectionsCarRoundedIcon />,
+          menuTitle: "All Vehicles",
+          menuLink: "/all-vehicles",
+        },
+        {
+          //menuImg: <DirectionsCarRoundedIcon />,
+          menuTitle: "Pending Vehicles",
+          menuLink: "/pending-vehicles",
+        },
+        {
+         // menuImg: <DirectionsCarRoundedIcon />,
+          menuTitle: "Approved Vehicles",
+          menuLink: "/approved-vehicles",
+        }
+      ]
     },
     {
-      menuImg: <DirectionsCarRoundedIcon />,
-      menuTitle: "Manage VehicleTbl",
-      menuLink: "/manage-vehicleTbl",
-      nestedLink: {},
-    },
+      menuImg: <ArchiveIcon />,
+      menuTitle: "Manage Bookings",
+      nestedLink: [
+        {
+          //menuImg: <DirectionsCarRoundedIcon />,
+          menuTitle: "All Bookings",
+          menuLink: "/all-bookings",
+        },
+        {
+         // menuImg: <DirectionsCarRoundedIcon />,
+          menuTitle: "Confirmed Bookings",
+          menuLink: "/confirmed-bookings",
+        },
+        {
+         // menuImg: <DirectionsCarRoundedIcon />,
+          menuTitle: "Pending Bookings",
+          menuLink: "/pending-bookings",
+        }
+      ]
+    },   
     {
-      menuImg: <DirectionsCarRoundedIcon />,
-      menuTitle: "Manage Users",
-      menuLink: "/manage-users",
-    },
-    {
-      menuImg: <DirectionsCarRoundedIcon />,
-      menuTitle: "Manage Locations",
-      menuLink: "/manage-locations",
-    },
-    {
-      menuImg: <DirectionsCarRoundedIcon />,
-      menuTitle: "Manage Stations",
-      menuLink: "/manage-stations",
-    },
-    {
-      menuImg: <DirectionsCarRoundedIcon />,
+      menuImg: <AccountTreeIcon />,
       menuTitle: "Manage Plans",
       menuLink: "/manage-plans",
-    },
-    {
-      menuImg: <PaymentRoundedIcon />,
-      menuTitle: "Payments",
-      menuLink: "/payments",
-    },
+    },    
+    // {
+    //   menuImg: <DirectionsCarRoundedIcon />,
+    //   menuTitle: "Discount Coupons",
+    //   menuLink: "/discount-coupons",
+    //   nestedLink: [
+    //     {
+    //       menuImg: <DirectionsCarRoundedIcon />,
+    //       menuTitle: "Active Coupons",
+    //       menuLink: "/active-coupons",
+    //     },
+    //     {
+    //       menuImg: <DirectionsCarRoundedIcon />,
+    //       menuTitle: "Expired Coupons",
+    //       menuLink: "/expired-coupons",
+    //     },
+    //     {
+    //       menuImg: <DirectionsCarRoundedIcon />,
+    //       menuTitle: "Deactivated Coupons",
+    //       menuLink: "/deactivated-coupons",
+    //     }
+    //   ]
+    // },    
+    // {
+    //   menuImg: <DirectionsCarRoundedIcon />,
+    //   menuTitle: "Manage Invoices",
+    //   menuLink: "/manage-invoices",
+    //   nestedLink: [
+    //     {
+    //       menuImg: <DirectionsCarRoundedIcon />,
+    //       menuTitle: "Paid Invoices",
+    //       menuLink: "/paid-invoices",
+    //     },
+    //     {
+    //       menuImg: <DirectionsCarRoundedIcon />,
+    //       menuTitle: "Unpaid Invoices",
+    //       menuLink: "/unpaid-invoices",
+    //     }
+    //   ]
+    // },
+    // {
+    //   menuImg: <DirectionsCarRoundedIcon />,
+    //   menuTitle: "Manage Accessories",
+    //   menuLink: "/manage-accessories",
+    // },
+    // {
+    //   menuImg: <DirectionsCarRoundedIcon />,
+    //   menuTitle: "Reporting",
+    //   menuLink: "/reporting",
+    //   nestedLink: [
+    //     {
+    //       menuImg: <DirectionsCarRoundedIcon />,
+    //       menuTitle: "Vehicle Reporting",
+    //       menuLink: "/vehicle-reporting",
+    //     },
+    //     {
+    //       menuImg: <DirectionsCarRoundedIcon />,
+    //       menuTitle: "Payment Reporting",
+    //       menuLink: "/payment-reporting",
+    //     },
+    //     {
+    //       menuImg: <DirectionsCarRoundedIcon />,
+    //       menuTitle: "User Reporting",
+    //       menuLink: "/user-reporting",
+    //     }
+    //   ]
+    // }
   ];
 
   return (
@@ -151,32 +252,38 @@ const SideBar = () => {
         style={{ height: "calc(100vh - 88px)" }}
       >
         <ul className="leading-10 text-gray-100">
-          {menuList.map((item, index) => (
-            <Link to={`${item?.menuLink}`} key={index}>
-              <li
-                className={`px-4 py-2 group capitalize ${
-                  location.pathname == `${item?.menuLink}` ||
-                  location.pathname == `${item?.moreLink}`
-                    ? "bg-theme text-gray-100"
-                    : ""
-                } hover:bg-theme transition duration-300 ease-in-out rounded-lg flex items-center gap-2 mb-2 dark:text-gray-100`}
-              >
-                <div
-                  className={`w-7 h-7 group-hover:text-gray-100 text-lg ${
-                    location.pathname == `${item?.menuLink}`
-                      ? "text-gray-100"
-                      : ""
-                  }`}
-                >
-                  {/* menuItem icon  */}
-                  {item?.menuImg}
-                </div>
-                <span className="group-hover:text-gray-100">
-                  {item?.menuTitle}
-                </span>
-              </li>
-            </Link>
-          ))}
+          {menuList.map((item, index) => {
+            if (item.nestedLink) {
+              return <SideBarDropDown item={item} key={index} />;
+            } else {
+              return (
+                <Link to={`${item?.menuLink}`} key={index}>
+                  <li
+                    className={`px-4 py-2 group capitalize ${
+                      location.pathname == `${item?.menuLink}` ||
+                      location.pathname == `${item?.moreLink}`
+                        ? "bg-theme text-gray-100"
+                        : ""
+                    } hover:bg-theme transition duration-300 ease-in-out rounded-lg flex items-center gap-2 mb-2 dark:text-gray-100`}
+                  >
+                    <div
+                      className={`w-7 h-7 group-hover:text-gray-100 text-lg ${
+                        location.pathname == `${item?.menuLink}`
+                          ? "text-gray-100"
+                          : ""
+                      }`}
+                    >
+                      {/* menuItem icon  */}
+                      {item?.menuImg}
+                    </div>
+                    <span className="group-hover:text-gray-100">
+                      {item?.menuTitle}
+                    </span>
+                  </li>
+                </Link>
+              );
+            }
+          })}
         </ul>
       </div>
     </div>

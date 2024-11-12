@@ -9,11 +9,15 @@ const vehicleSlice = createSlice({
     loginDetails: {},
     tableData: [],
     columnData: [],
+    addNew: false,
     updateData: {}
   },
   reducers: {   
     setUpdateData: (state, action) => {
       state.updateData = action.payload;
+    },
+    setAddNew: (state, action) => {
+      state.addNew = action.payload;
     },
     setLoginDetails: (state, action) => {
       state.loginDetails = action.payload;
@@ -70,6 +74,7 @@ export const {
   setUpdateData,
   setTableData,
   fetchVehicleStart,
+  setAddNew,
   fetchVehicleSuccess,
   fetchMoreVehicleSuccess,
   fetchVehicleFailure,

@@ -2,20 +2,21 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { handleAsyncError } from "../utils/Helper/handleAsyncError.js";
-import { InputComponent, SelectComponent2 } from "../components/CommonComponents/commonComponents.jsx";
+import { BackButton, InputComponent, Loader, SelectComponent2 } from "../components/CommonComponents/commonComponents.jsx";
 import { setUpdateData } from "../Redux/AdsSlice/VehicleSlice.js";
 import { getApi, postApi } from "../response/api.js";
 import { setError } from "../Redux/ErrorSlice/ErrorSlice.js";
 import { staticData } from "../constant.js";
+import { setLoading } from "../Redux/ThemeSlice/ThemeSlice.js";
 
 const CreateNewPlan = () => {
   const navigate = useNavigate();
+  const { loading } = useSelector(state => state.theme)
   const { updateData } = useSelector(state => state.vehicles)  
   const dispatch = useDispatch();
   const [rows, setRows] = useState(1);
   const create = async () => {
-    // let clone = JSON.parse(JSON.stringify())
-    // delete clone._id
+    dispatch(setLoading(true))
     const res = await postApi('/createPlan', updateData)      
     if (res && res.status == 200) {
       dispatch(setError({ type: "success", message: res.message }))
@@ -23,6 +24,7 @@ const CreateNewPlan = () => {
     } else {
       dispatch(setError({ type: "error", message: res.message }))
     }
+    dispatch(setLoading(true))
   }
   const updateRows = () => {
     if (window.innerWidth < 640) {
@@ -41,9 +43,10 @@ const CreateNewPlan = () => {
 
   return (
     <>
-      <h1 className="text-2xl uppercase font-bold text-theme mb-5">
-        Create New Plan
-      </h1>
+    {
+      loading ? <Loader /> : null
+    }
+     <BackButton label="New Plan" />
       <div className="w-full lg:w-[95%] shadow-lg rounded-xl p-5 mx-auto bg-white">
         <div style={{ display: "flex", marginTop: "15px" }}>
           <InputComponent
